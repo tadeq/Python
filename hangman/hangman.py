@@ -1,6 +1,7 @@
 from random import randint
 from random import seed
 from itertools import chain
+from os import system
 
 standard_letters = chain(range(97, 123), range(65, 91))
 special_letters = "ąćęłńóśźżĄĆĘŁŃÓŚŹŻ"
@@ -21,16 +22,24 @@ def get_word():
 
 def get_correct_char():
     c = input()
+    lines_back = 1
     while len(c) != 1:
-        print("Enter exactly one letter")
+        print(lines_back * ("\033[F" + "\033[K") + "Enter exactly one letter")
         c = input()
+        lines_back = 2
     while c not in legal_letters:
-        print("You have to enter a letter")
+        print(lines_back * ("\033[F" + "\033[K") + "You have to enter a letter")
         c = input()
+        lines_back = 2
         while len(c) != 1:
-            print("Enter exactly one letter")
+            print(lines_back * ("\033[F" + "\033[K") + "Enter exactly one letter")
             c = input()
+            lines_back = 2
     return c
+
+
+def print_gamefield(word, mistakes_no):
+    print(" ".join(word) + "   mistakes: {}/3".format(mistakes_no))
 
 
 def game(word):
@@ -46,12 +55,13 @@ def game(word):
     guessed = False
     mistakes = 0
     while not guessed and mistakes < 3:
-        print(" ".join(to_guess) + "   mistakes: %d/3" % mistakes)
+        print_gamefield(to_guess, mistakes)
         guess = get_correct_char()
         letter_in_word = False
         if guess.lower() in to_guess or guess.upper() in to_guess \
                 or guess.upper() in wrong_letters or guess.lower() in wrong_letters:
-            print("This letter has already been entered")
+            system('clear')
+            print("Letter {} has already been entered".format(guess.lower()))
         else:
             for i in range(len(word)):
                 if guess.lower() == word[i].lower() and guess.upper() not in to_guess and guess.lower() not in to_guess:
@@ -65,15 +75,18 @@ def game(word):
                 mistakes += 1
             if to_guess == word:
                 guessed = True
-    print(" ".join(to_guess) + "   mistakes: %d/3" % mistakes)
+            system('clear')
+    print_gamefield(to_guess, mistakes)
     if guessed:
         print("YOU WON")
     else:
-        print("YOU LOST. THE CORRECT WORD WAS \"%s\"" % "".join(word))
+        print("YOU LOST. THE CORRECT WORD WAS \"{}\"".format("".join(word)))
 
 
 def main():
     game(get_word())
 
 
-main()
+if __name__ == "__main__":
+    system('clear')
+    main()
