@@ -1,6 +1,5 @@
 import json
 from sys import argv
-from traceback import format_exc
 from figures import Point
 from figures import Polygon
 from figures import Rectangle
