@@ -1,0 +1,10 @@
+{
+    "Figures": [
+        {"type": "point", "x": 3, "y": 3, "color": "(70,0,255)"},
+        {"type": "polygon", "points": [[0,1000], [1000,0], [950,1201]], "color": "#ffff00"},
+        {"type": "rectangle", "x": 50, "y": 60, "width": 15, "height": 35, "color": "(127,127,127)"},
+        {"type": "circle", "x": 500, "y": 600, "radius": "77", "color": "(255,255,255)"},
+        {"type": "circle", "x": 990, "y": 1190, "radius": 10, "color": "#bb8800"}
+    ],
+    "Screen": {"width": 1000, "height": 1200, "bg_color": "#00ffff"}
+}
