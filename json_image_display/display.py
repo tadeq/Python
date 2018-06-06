@@ -16,15 +16,6 @@ class Display:
             self.palette = palette
         self.img = None
 
-    def set_bg(self):
-        bg_color = self.screen['bg_color']
-        width = self.screen['width']
-        height = self.screen['height']
-        if bg_color[0] in "(#":
-            self.img = Image.new('RGB', (width, height), bg_color)
-        else:
-            self.img = Image.new('RGB', (width, height), self.palette[bg_color])
-
     def set_color(self, color):
         if color[0] == "#":
             return color
@@ -34,6 +25,13 @@ class Display:
             return tuple(col)
         else:
             return self.palette[color]
+
+    def set_bg(self):
+        bg_color = self.screen['bg_color']
+        width = self.screen['width']
+        height = self.screen['height']
+        col = self.set_color(bg_color)
+        self.img = Image.new('RGB', (width, height), col)
 
     def draw_figures(self):
         draw = ImageDraw.Draw(self.img)
@@ -64,12 +62,9 @@ class Display:
     def display(self):
         self.set_bg()
         self.draw_figures()
-        self.show()
-
-    def show(self):
         self.img.show()
 
     def save(self, filename):
-        if not filename.endswith(tuple([".png", ".PNG"])):
+        if not filename.endswith((".png", ".PNG",)):
             filename += ".png"
         self.img.save(filename)
