@@ -3,10 +3,13 @@ from string import hexdigits
 
 
 class Validator:
-    def __init__(self, figures, screen, palette):
+    def __init__(self, figures, screen, palette=None):
         self.figures = figures
         self.screen = screen
-        self.palette = palette
+        if palette is None:
+            self.palette = dict()
+        else:
+            self.palette = palette
 
     def validate_screen(self):
         if "width" not in self.screen:
@@ -36,13 +39,14 @@ class Validator:
                     raise ValueError("Wrong html color value")
                 if not all(char in hexdigits for char in color[1:]):
                     raise ValueError("Wrong html color value")
+            elif not self.palette:
+                raise ValueError("Color not html or RGB and no palette given")
             elif color not in self.palette:
                 raise ValueError("No such color in palette")
 
     def validate_palette(self):
-        if self.palette is not None:
-            for col in self.palette:
-                self.validate_color(col)
+        for col in self.palette.values():
+            self.validate_color(col)
 
     def validate_figures(self):
         for figure in self.figures:

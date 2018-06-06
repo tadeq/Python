@@ -7,10 +7,13 @@ from figures import Circle
 
 
 class Display:
-    def __init__(self, figures, screen, palette):
+    def __init__(self, figures, screen, palette=None):
         self.figures = figures
         self.screen = screen
-        self.palette = palette
+        if palette is None:
+            self.palette = dict()
+        else:
+            self.palette = palette
         self.img = None
 
     def set_bg(self):
