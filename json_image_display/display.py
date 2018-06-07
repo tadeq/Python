@@ -46,14 +46,10 @@ class Display:
                 draw.point([figure.x, figure.y], fill=col)
             elif t == Polygon:
                 draw.polygon([(v.x, v.y) for v in figure.vertexes], fill=col)
-            elif t == Rectangle:
+            elif t == Rectangle or t == Square:
                 rect = [(figure.center.x - figure.width / 2, figure.center.y - figure.height / 2),
                         (figure.center.x + figure.width / 2, figure.center.y + figure.height / 2)]
                 draw.rectangle(rect, fill=col)
-            elif t == Square:
-                square = [(figure.center.x - figure.size / 2, figure.center.y - figure.size / 2),
-                          (figure.center.x + figure.size / 2, figure.center.y + figure.size / 2)]
-                draw.rectangle(square, fill=col)
             elif t == Circle:
                 circle = [(figure.center.x - figure.radius, figure.center.y - figure.radius),
                           (figure.center.x + figure.radius, figure.center.y + figure.radius)]

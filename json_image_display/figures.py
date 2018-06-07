@@ -27,10 +27,9 @@ class Rectangle(Figure):
         self.height = height
 
 
-class Square(Figure):
+class Square(Rectangle):
     def __init__(self, x, y, size, color=None):
-        super().__init__(x, y, color)
-        self.size = size
+        super().__init__(x, y, size, size, color)
 
 
 class Circle(Figure):
