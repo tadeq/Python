@@ -1,10 +1,6 @@
 import json
-from sys import argv
-from figures import Point
-from figures import Polygon
-from figures import Rectangle
-from figures import Square
-from figures import Circle
+import argparse
+from figures import Point, Polygon, Rectangle, Square, Circle
 from display import Display
 from validator import Validator
 
@@ -45,18 +41,15 @@ def load_data(json_data):
 
 
 def main():
-    out_filename = ""
-    if len(argv) not in [2, 4]:
-        print("Wrong number of arguments.")
-        return
-    elif len(argv) == 2:
-        json_filename = argv[1]
-    elif len(argv) == 4 and argv[2] in ["-o", "--output"]:
-        json_filename = argv[1]
-        out_filename = argv[3]
+    parser = argparse.ArgumentParser()
+    parser.add_argument('json_filename', type=str, help='Input json file to read')
+    parser.add_argument('-o', '--output', type=str, metavar='', help='Output png file to save the image')
+    args = parser.parse_args()
+    json_filename = args.json_filename
+    if args.output is not None:
+        out_filename = args.output
     else:
-        print("If you enter second argument it has to be \"-o\" or \"--output\"")
-        return
+        out_filename = ""
     try:
         json_data = read_json(json_filename)
     except FileNotFoundError as e:

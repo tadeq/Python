@@ -1,9 +1,5 @@
 from PIL import Image, ImageDraw
-from figures import Point
-from figures import Polygon
-from figures import Rectangle
-from figures import Square
-from figures import Circle
+from figures import Point, Polygon, Rectangle, Square, Circle
 
 
 class Display:
